@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import "./todoList.css";
 import Icone from './assets/Icone.jpg'
 
 function TodoList() {
 
-    const [lista, setLista] = useState([])
+    const listaStorage = localStorage.getItem("lista");
+
+    const [lista, setLista] = useState(listaStorage ? JSON.parse(listaStorage) : []);
     const [novoItem, setNovoItem] = useState("");
+
+    useEffect(()=>{
+        localStorage.setItem("lista", JSON.stringify(lista));
+    }, [lista])
 
     function adcionaItem(form){
         form.preventDefault(); //impedir que o comportamento padrão de um evento aconteça.
@@ -24,6 +30,16 @@ function TodoList() {
         setLista(listaAux);
     }
 
+    function deleta(index){
+        const listaAux = [...lista];
+        listaAux.splice(index, 1); // deleta um item da lista no index
+        setLista(listaAux);
+    }
+
+    function deletaTudo(){
+        setLista([]); // Lista vai ficar fazia
+    }
+
     return (
         <div>
             <h1>Lista de tarefas</h1>
@@ -38,11 +54,11 @@ function TodoList() {
                 <button className="add" type="submit">add</button>
             </form>
             <div className="listaTarefas">
-                <div style={{textAlign: 'center'}}>
+                <div style={{ textAlign: 'center', display: 'flex', flexDirection:'column'}}>
                     {
                         lista.length <1 
                         ? 
-                        <img className="icone-central" width={150} height={150} src={Icone}/>
+                        <img className="icone-central" src={Icone}/>
                         :
                         lista.map((item, index)=>(
                             <div 
@@ -50,11 +66,14 @@ function TodoList() {
                                 className={item.isCompleted ? "item-completo" : "item"}
                             >
                                 <span onClick={()=>{clicou(index)}} >{item.text}</span>
-                                <button className="del">Deletar</button>
+                                <button onClick={()=>{deleta(index)}} className="del">Deletar</button>
                             </div>
                         ))
                     }
-                    <button className="deleteAll">Deletar Todas</button>
+                    {
+                        lista.length > 0 &&
+                        <button onClick={() => {deletaTudo()}} className="deleteAll">Deletar Todas</button>
+                    }
                 </div>
             </div>
         </div>

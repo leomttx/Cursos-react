@@ -51,7 +51,6 @@ button.add:hover {
     background: #363f88;
 }
 .listaTarefas {
-    display: flex;
     justify-content: center;
     flex-flow: column wrap;
     width: 600px;
@@ -113,13 +112,16 @@ button.deleteAll {
     font-weight: bold;
     border-radius: 5px;
     margin-top: 30px;
+    cursor: pointer;
 }
 button.deleteAll:hover {
     background: #ff004c;
     color: white;
     cursor: pointer;
 }
-
+.icone-central {
+    max-width: 100%;
+}
 @media screen and (max-width: 900px) {
     form {
         width: 100%;

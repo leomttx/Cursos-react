@@ -1,1 +1,4 @@
 {} -> Interpolação: Posso usar os recursos do js no html usando os colchetes.
+setLista([...lista]) -> Pega o que já esta na lista e faz algo
+&& -> verifica se a condição passada é verdadeira.
+useEffect -> O que vai acontecer se tiver uma mudança em um estado (State)
