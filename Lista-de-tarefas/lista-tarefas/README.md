@@ -1,8 +1,35 @@
-# React + Vite
+# Lista de Tarefas com React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto simples de uma Lista de Tarefas (To-Do List) desenvolvido com React. O objetivo é fornecer uma aplicação que permita adicionar e remover tarefas, além de marcar tarefas como concluídas.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Adicionar novas tarefas
+- Marcar tarefas como concluídas
+- Remover tarefas
+
+## Tecnologias Utilizadas
+
+- **React**: Biblioteca principal para a construção da interface do usuário.
+- **CSS**: Estilização básica da aplicação.
+
+## Como Executar o Projeto
+
+Para rodar o projeto localmente, siga os seguintes passos:
+
+1. **Clone o Repositório**
+
+   ```bash
+   git clone https://github.com/leomttx/Cursos-react.git
+
+2. Navegue até o Diretório do Projeto
+   ````bash
+   cd nome-do-repositorio
+
+3. Instale as Depências
+   ````bash
+   npm install
+
+3. Inicie o Servidor de Desenvolvimento
+   ````bash
+   npm run dev
