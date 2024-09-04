@@ -17,6 +17,7 @@ function TodoList() {
   const [mostrarEtiquetas, setMostrarEtiquetas] = useState(false); // Estado para controle da navegação
 
   useEffect(() => {
+    const websocket = new WebSocket("https://didactic-fortnight-p7p79g49w5wh7xv6-8001.app.github.dev/");
     const carregarTarefas = async () => {
       try {
         const tarefas = await fetchTarefas();
@@ -45,8 +46,8 @@ function TodoList() {
       };
       const tarefaAdicionada = await adicionarTarefa(novaTarefa).then(
         (response) => {
-          alert("Tarefa adicionada com sucesso!");
-          return response;
+          console.log(response);
+          notificarWebSocket(response.id)
         }
       );
       setLista((prevLista) => [...prevLista, tarefaAdicionada]);
@@ -56,6 +57,14 @@ function TodoList() {
     } catch (error) {
       console.error("Erro ao adicionar tarefa:", error);
     }
+  }
+
+  function notificarWebSocket(id_da_nova_tarefa) {
+    const event = {
+      type: "update",
+      data: id_da_nova_tarefa
+    }
+    websocket.send(JSON.stringify(event));
   }
 
   async function clicou(index) {
