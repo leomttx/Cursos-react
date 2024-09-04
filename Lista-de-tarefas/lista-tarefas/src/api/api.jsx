@@ -1,14 +1,17 @@
 // src/api.js
 
-const API_URL = "http://localhost:5000/tarefas/";
+const API_TAREFAS_URL = "http://localhost:5000/tarefas/";
 
 // URL da API Gateway para etiquetas
 const API_ETIQUETAS_URL = "http://localhost:5000/etiquetas/";
 
+// Mudar GATEWAY_URL de acordo com o ambiente
+const GATEWAY_URL = "https://didactic-fortnight-p7p79g49w5wh7xv6-5000.app.github.dev/";
+
 // Função para buscar etiquetas
 export async function fetchEtiquetas() {
   try {
-    const response = await fetch(API_ETIQUETAS_URL);
+    const response = await fetch(GATEWAY_URL + "etiquetas/");
     if (!response.ok) {
       throw new Error(`Erro ${response.status}`);
     }
@@ -23,7 +26,7 @@ export async function fetchEtiquetas() {
 // Função para adicionar uma nova etiqueta
 export async function adicionarEtiqueta(etiqueta) {
   try {
-    const response = await fetch(API_ETIQUETAS_URL, {
+    const response = await fetch(GATEWAY_URL + "etiquetas/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +47,7 @@ export async function adicionarEtiqueta(etiqueta) {
 // Função para deletar uma etiqueta
 export async function deletarEtiqueta(etiquetaId) {
   try {
-    const response = await fetch(`${API_ETIQUETAS_URL}${etiquetaId}/`, {
+    const response = await fetch(`${GATEWAY_URL}etiquetas/${etiquetaId}/`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -60,7 +63,7 @@ export async function deletarEtiqueta(etiquetaId) {
 // Função para buscar tarefas
 export async function fetchTarefas() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(GATEWAY_URL + "tarefas/");
     if (!response.ok) {
       throw new Error(`Erro ${response.status}`);
     }
@@ -75,7 +78,7 @@ export async function fetchTarefas() {
 // Função para adicionar uma nova tarefa
 export async function adicionarTarefa(tarefa) {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(GATEWAY_URL + "tarefas/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +99,7 @@ export async function adicionarTarefa(tarefa) {
 // Função para atualizar uma tarefa
 export async function atualizarTarefa(tarefaId, tarefaAtualizada) {
   try {
-    const response = await fetch(`${API_URL}${tarefaId}/`, {
+    const response = await fetch(`${GATEWAY_URL}tarefas/${tarefaId}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +119,7 @@ export async function atualizarTarefa(tarefaId, tarefaAtualizada) {
 // Função para deletar uma tarefa
 export async function deletarTarefa(tarefaId) {
   try {
-    const response = await fetch(`${API_URL}${tarefaId}/`, {
+    const response = await fetch(`${GATEWAY_URL}tarefas/${tarefaId}/`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -132,9 +135,9 @@ export async function deletarTarefa(tarefaId) {
 // Função para deletar todas as tarefas
 export async function deletarTodasTarefas() {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(API_TAREFAS_URL, {
       method: "DELETE",
-    });
+    });0
     if (!response.ok) {
       throw new Error(`Erro ${response.status}`);
     }
