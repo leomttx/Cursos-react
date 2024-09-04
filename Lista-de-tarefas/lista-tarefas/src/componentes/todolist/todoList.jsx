@@ -43,7 +43,12 @@ function TodoList() {
         descricao: descricao,
         etiqueta_id: null,
       };
-      const tarefaAdicionada = await adicionarTarefa(novaTarefa);
+      const tarefaAdicionada = await adicionarTarefa(novaTarefa).then(
+        (response) => {
+          alert("Tarefa adicionada com sucesso!");
+          return response;
+        }
+      );
       setLista((prevLista) => [...prevLista, tarefaAdicionada]);
       setNovoItem("");
       setDescricao("");
