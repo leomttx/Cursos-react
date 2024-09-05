@@ -37,6 +37,10 @@ function TodoList() {
       console.error("Erro no WebSocket:", error);
     };
 
+    ws.onmessage = (event) => {
+      console.log("Mensagem do servidor WS recebida");
+    };
+
     return () => {
       ws.close(); // Feche o WebSocket ao desmontar o componente
     };
