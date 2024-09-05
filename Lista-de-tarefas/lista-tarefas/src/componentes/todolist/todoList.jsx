@@ -15,9 +15,34 @@ function TodoList() {
   const [novoItem, setNovoItem] = useState("");
   const [descricao, setDescricao] = useState("");
   const [mostrarEtiquetas, setMostrarEtiquetas] = useState(false); // Estado para controle da navegação
+  const [websocket, setWebsocket] = useState(null); // Estado para armazenar o WebSocket
+  const [wsReady, setWsReady] = useState(false);
 
   useEffect(() => {
-    const websocket = new WebSocket("https://didactic-fortnight-p7p79g49w5wh7xv6-8001.app.github.dev/");
+    // Instancie o WebSocket dentro de useEffect
+    const ws = new WebSocket("wss://didactic-fortnight-p7p79g49w5wh7xv6-8765.app.github.dev/");
+    setWebsocket(ws);
+
+    ws.onopen = () => {
+      console.log("WebSocket conectado");
+      setWsReady(true); // WebSocket está pronto para uso
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket fechado");
+      setWsReady(false); // WebSocket não está mais pronto
+    };
+
+    ws.onerror = (error) => {
+      console.error("Erro no WebSocket:", error);
+    };
+
+    return () => {
+      ws.close(); // Feche o WebSocket ao desmontar o componente
+    };
+  }, []);
+
+  useEffect(() => {
     const carregarTarefas = async () => {
       try {
         const tarefas = await fetchTarefas();
@@ -47,7 +72,7 @@ function TodoList() {
       const tarefaAdicionada = await adicionarTarefa(novaTarefa).then(
         (response) => {
           console.log(response);
-          notificarWebSocket(response.id)
+          notificarWebSocket();
         }
       );
       setLista((prevLista) => [...prevLista, tarefaAdicionada]);
@@ -59,11 +84,11 @@ function TodoList() {
     }
   }
 
-  function notificarWebSocket(id_da_nova_tarefa) {
+  function notificarWebSocket() {
+    console.log("Notificar");
     const event = {
-      type: "update",
-      data: id_da_nova_tarefa
-    }
+      type: "update"
+    };
     websocket.send(JSON.stringify(event));
   }
 

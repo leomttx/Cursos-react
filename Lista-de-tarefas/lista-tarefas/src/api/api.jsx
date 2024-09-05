@@ -137,7 +137,7 @@ export async function deletarTodasTarefas() {
   try {
     const response = await fetch(API_TAREFAS_URL, {
       method: "DELETE",
-    });0
+    });
     if (!response.ok) {
       throw new Error(`Erro ${response.status}`);
     }
