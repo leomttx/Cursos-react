@@ -23,6 +23,10 @@ function TodoList() {
     const ws = new WebSocket("wss://didactic-fortnight-p7p79g49w5wh7xv6-8765.app.github.dev/");
     setWebsocket(ws);
 
+    ws.onmessage = ({ data }) => {
+      alert("SEGURA DEZ MIL A MÃE RECEBEU ESSA NOTIFICAÇÃO");
+    };
+
     ws.onopen = () => {
       console.log("WebSocket conectado");
       setWsReady(true); // WebSocket está pronto para uso
@@ -37,13 +41,6 @@ function TodoList() {
       console.error("Erro no WebSocket:", error);
     };
 
-    ws.onmessage = (event) => {
-      console.log("Mensagem do servidor WS recebida");
-    };
-
-    return () => {
-      ws.close(); // Feche o WebSocket ao desmontar o componente
-    };
   }, []);
 
   useEffect(() => {
