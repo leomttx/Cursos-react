@@ -1,3 +1,4 @@
+name: Contributors Readme Action
 on:
     push:
         branches:
